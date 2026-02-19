@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 GitHub Controller</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        button { padding: 20px 40px; font-size: 20px; cursor: pointer; margin: 10px; }
+        #on { background-color: #4CAF50; color: white; border: none; }
+        #off { background-color: #f44336; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <h1>ESP32 LED Control</h1>
+    <button id="onBtn">Turn ON</button>
+    <button id="offBtn">Turn OFF</button>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPgyQmg4fEZEjS6dG5E6we00lhLV6ux1M",
+            authDomain: "iot-workshop-3bdd0.firebaseapp.com",
+            databaseURL: "https://iot-workshop-3bdd0-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "iot-workshop-3bdd0",
+            storageBucket: "iot-workshop-3bdd0.firebasestorage.app",
+            messagingSenderId: "961652057079",
+            appId: "1:961652057079:web:9301f7956378cb97b484f2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById('onBtn').onclick = () => set(ref(db, 'ledStatus'), 1);
+        document.getElementById('offBtn').onclick = () => set(ref(db, 'ledStatus'), 0);
+    </script>
+</body>
+</html>
